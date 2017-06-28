@@ -30,6 +30,22 @@ var albumMarconi = {
     ]
 };
 
+var albumFavorite = {
+    title: 'Top Five',
+    artist: 'Many',
+    label: 'MMA',
+    year: '2017',
+    albumArtUrl: 'assets/images/album_covers/09.png',
+    songs: [
+        { title: 'Call Me', duration: '3:42' },
+        { title: 'Wrong Side of Heaven', duration: '4:30'},
+        { title: 'Bad Company', duration: '4:22'},
+        { title: 'What I\'ve done', duration: '3:24'},
+        { title: 'Nothing Else Matters', duration: '6:28'}
+    ]
+};
+
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
        '<tr class="album-view-song-item">'
@@ -46,8 +62,8 @@ var setCurrentAlbum = function(album) {
      // #1
      var albumTitle = document.getElementsByClassName('album-view-title')[0];
      var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
      var albumImage = document.getElementsByClassName('album-cover-art')[0];
+     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
      var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
      // #2
@@ -67,4 +83,14 @@ var setCurrentAlbum = function(album) {
 
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
- };
+
+     var album = [albumPicasso, albumMarconi, albumFavorite];
+     var i = 0;
+       document.getElementsByClassName('album-cover-art')[0].addEventListener('click', function(event){
+       setCurrentAlbum(album[i+1]);
+       i++;
+       if (album.length == i+1) {
+         i = -1;
+       }
+     });
+   };
