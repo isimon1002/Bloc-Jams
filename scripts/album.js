@@ -82,12 +82,18 @@ var setCurrentAlbum = function(album) {
  };
 
  var findParentByClassName = function(element, targetClass) {
+     if (element.parentElement == null){
+        return console.log("No parent found")
+     }
      if (element) {
          var currentParent = element.parentElement;
          while (currentParent.className !== targetClass && currentParent.className !== null) {
              currentParent = currentParent.parentElement;
          }
          return currentParent;
+         if (currentParent.className == null){
+            return console.log("No parent found with that class name")
+         }
      }
  };
 
@@ -146,15 +152,14 @@ window.onload = function() {
              // Change the content from the number to the play button's HTML
              event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
              var songItem = getSongItem(event.target);
-             if (songItemNumber !== currentlyPlayingSong) {
-                 songItem.innerHTML = playButtonTemplate;
+
              }
-         }
-     });
+         });
+
      songListContainer.addEventListener('click', function(event) {
          if (event.target.parentElement.className === 'album-view-song-item') {
              // Change the content from the number to the play button's HTML
-             event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+             event.target.parentElement.querySelector('.song-item-number').innerHTML = pauseButtonTemplate;
          }
      });
 
