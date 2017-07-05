@@ -9,7 +9,7 @@ var animatePoints = function(){
     $.each($('.point'), revealPoint);
 };
 
-window.onload = function() {
+$(window).load(function() {
     if($(window).height() > 950) {
       animatePoints();
     }
@@ -21,4 +21,4 @@ window.onload = function() {
               animatePoints();
           }
       });
-  };
+  });
