@@ -93,7 +93,8 @@ var setCurrentAlbum = function(album) {
      return album.songs.indexOf(song);
  };
 
- var nextSong = function() {
+ var SwitchSong = function() {
+   if($nextButton.click==true){
      var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
      // Note that we're _incrementing_ the song here
      currentSongIndex++;
@@ -116,10 +117,9 @@ var setCurrentAlbum = function(album) {
 
      $nextSongNumberCell.html(pauseButtonTemplate);
      $lastSongNumberCell.html(lastSongNumber);
- };
-
- var previousSong = function() {
-     var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+ }
+     if($previousButton.click == true){
+       var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
      // Note that we're _decrementing_ the index here
      currentSongIndex--;
 
@@ -143,6 +143,7 @@ var setCurrentAlbum = function(album) {
 
      $previousSongNumberCell.html(pauseButtonTemplate);
      $lastSongNumberCell.html(lastSongNumber);
+ }
  };
 
  var updatePlayerBarSong = function() {
@@ -168,8 +169,8 @@ var $nextButton = $('.main-controls .next');
 
 $(document).ready(function() {
     setCurrentAlbum(albumPicasso);
-    $previousButton.click(previousSong);
-    $nextButton.click(nextSong);
+    $previousButton.click(SwitchSong);
+    $nextButton.click(SwitchSong);
 });
      var album = [albumPicasso, albumMarconi, albumFavorite];
      var i = 0;
