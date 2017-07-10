@@ -1,13 +1,15 @@
 var togglePlayFromPlayerBar = function(){
+  var songNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
   if(currentSoundFile.isPaused()) {
         $('.main-controls .play-pause').html(playerBarPauseButton);
+        songNumberCell.html(pauseButtonTemplate);
         currentSoundFile.play();
         }
-  if(currentSoundFile.isPlay()){
-        $('.main-controls .play-pause').html(playerBarPlayButton);
-        currentSoundFile.pause();
-        }
-
+  else if(currentSoundFile.isPaused() == false) {
+      $('.main-controls .play-pause').html(playerBarPlayButton);
+      songNumberCell.html(playButtonTemplate);
+      currentSoundFile.pause();
+      }
 };
 var setSong = function(songNumber) {
     if(currentSoundFile){
