@@ -1,6 +1,6 @@
 var setSong = function(songNumber) {
     if(currentSoundFile){
-      currentSoundFile.stop;
+      currentSoundFile.stop();
     }
 
     currentlyPlayingSongNumber = parseInt(songNumber);
@@ -136,13 +136,13 @@ var setCurrentAlbum = function(album) {
      var lastSongNumber = parseInt(currentlyPlayingSongNumber);
 
      // Set a new current song
-     setSong(currentSongIndex +1);
+     setSong(currentSongIndex + 1);
      currentSoundFile.play();
 
      // Update the Player Bar information
      updatePlayerBarSong();
 
-     var $nextSongNumberCell = getSongNumberCell( currentlyPlayingSongNumber);
+     var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
      var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
 
      $nextSongNumberCell.html(pauseButtonTemplate);
