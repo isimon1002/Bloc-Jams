@@ -17,6 +17,17 @@ var togglePlayFromPlayerBar = function(){
       }
 };
 
+var setCurrentTimeInPlayerBar = function(currentTime){
+  $('.current-time').text(currentSoundFile.getTime());
+};
+
+var setTotalTimeInPlayerBar = function(totalTime){
+  $('.total-time').text(currentSoundFile.getDuration());
+};
+
+var filterTimeCode = function(timeInSeconds){
+
+};
 var updateSeekBarWhileSongPlays = function() {
     if (currentSoundFile) {
         // #10
@@ -27,7 +38,8 @@ var updateSeekBarWhileSongPlays = function() {
 
             updateSeekPercentage($seekBar, seekBarFillRatio);
         });
-    }
+      }
+      setCurrentTimeInPlayerBar();
 };
 
 
@@ -288,6 +300,7 @@ var setCurrentAlbum = function(album) {
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    setTotalTimeInPlayerBar();
 };
 
 // Album button templates
