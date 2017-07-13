@@ -5,7 +5,7 @@ var togglePlayFromPlayerBar = function(){
         songNumberCell.html(pauseButtonTemplate);
         currentSoundFile.play();
         }
-    else if(currentSoundFile.isPaused() == false) {
+    else if(currentSoundFile.play()) {
         $('.main-controls .play-pause').html(playerBarPlayButton);
         songNumberCell.html(playButtonTemplate);
         currentSoundFile.pause();
@@ -18,16 +18,20 @@ var togglePlayFromPlayerBar = function(){
 };
 
 var setCurrentTimeInPlayerBar = function(currentTime){
-    $('.current-time').text(currentSoundFile.getTime());
+    $('.current-time').text(filterTimeCode(currentSoundFile.getTime()));
 };
 
 var setTotalTimeInPlayerBar = function(totalTime){
-    $('.total-time').text(currentSoundFile.getDuration());
+    $('.total-time').text(filterTimeCode(currentSoundFile.getDuration()));
 };
 
 var filterTimeCode = function(timeInSeconds){
-
+    var time = parseFloat(timeInSeconds);  //163.38
+    var minutes = Math.floor(time / 60);  //2
+    var seconds = Math.round((((time / 60) - minutes) * 0.6)*100+1) //43
+    return minutes + ":" + seconds; //2:43
 };
+
 var updateSeekBarWhileSongPlays = function() {
     if (currentSoundFile) {
         // #10
@@ -37,7 +41,8 @@ var updateSeekBarWhileSongPlays = function() {
             var $seekBar = $('.seek-control .seek-bar');
 
             updateSeekPercentage($seekBar, seekBarFillRatio);
-            setCurrentTimeInPlayerBar();
+            setCurrentTimeInPlayerBar(this.getTime());
+            setTotalTimeInPlayerBar(this.getDuration());
         });
       }
 };
@@ -128,7 +133,7 @@ var setSong = function(songNumber) {
     currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
         // #2
         formats: [ 'mp3' ],
-        preload: true
+        preload: true,
     });
     setVolume = currentVolume;
 };
@@ -142,7 +147,7 @@ var createSongRow = function(songNumber, songName, songLength) {
        '<tr class="album-view-song-item">'
      + ' <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
      + '  <td class="song-item-title">' + songName + '</td>'
-     + '  <td class="song-item-duration">' + songLength + '</td>'
+     + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
      + '</tr>'
      ;
 
@@ -330,7 +335,6 @@ var $playPauseButton = $('.main-controls .play-pause');
 $(document).ready(function() {
     setCurrentAlbum(albumPicasso);
     setupSeekBars();
-    seek();
     $previousButton.click(previousSong);
     $nextButton.click(nextSong);
     $playPauseButton.click(togglePlayFromPlayerBar);
