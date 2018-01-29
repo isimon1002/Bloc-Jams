@@ -30,7 +30,7 @@ var setTotalTimeInPlayerBar = function(totalTime){
 var filterTimeCode = function(timeInSeconds){
     var time = parseFloat(timeInSeconds);  //163.38
     var minutes = Math.floor(time / 60);  //2
-    var seconds = Math.round((((time / 60) - minutes) * 0.6)*100+1) //43
+    var seconds = ("0" + Math.round((((time / 60) - minutes) * 0.6)*100+1)).slice(-2) //43
     return minutes + ":" + seconds; //2:43
 };
 
